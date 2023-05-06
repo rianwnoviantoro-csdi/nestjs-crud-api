@@ -38,4 +38,10 @@ export class FeedService {
   deleteFeed(id: number): Observable<DeleteResult> {
     return from(this.feedRepository.delete(id));
   }
+
+  findFeedById(id: number): Observable<Feed> {
+    return from(
+      this.feedRepository.findOne({ where: { id }, relations: ['author'] }),
+    );
+  }
 }

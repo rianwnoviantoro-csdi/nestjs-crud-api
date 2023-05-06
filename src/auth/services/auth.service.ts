@@ -76,4 +76,15 @@ export class AuthService {
       }),
     );
   }
+
+  findUserById(id: number): Observable<User> {
+    return from(
+      this.userRepository.findOne({ where: { id }, relations: ['feeds'] }),
+    ).pipe(
+      map((user: User) => {
+        delete user.password;
+        return user;
+      }),
+    );
+  }
 }
